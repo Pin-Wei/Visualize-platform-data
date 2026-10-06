@@ -141,8 +141,8 @@ def main():
     if data_path is not None:
         df = load_data(data_path)
     else:
-        assert DEFAULT_DATA_PATH is not None, "No CSV file found in `data` directory, please upload one."
-        df = load_data()
+        if DEFAULT_DATA_PATH is not None: # "No CSV file found in `data` directory, please upload one."
+            df = load_data()
     st.write(f"From: {data_path or DEFAULT_DATA_PATH}")
 
     ## Print raw data
