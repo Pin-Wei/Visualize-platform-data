@@ -1,0 +1,113 @@
+#!/usr/bin/env python
+
+## platform data
+P_DOMAINS_MAP = {
+    "工作記憶": "WorkMem", 
+    "情節記憶": "EpisMem", 
+    "語言理解": "LangComp", 
+    "語言產出": "LangProd", 
+    "動作": "Motor"
+}
+P_DOMAINS = list(P_DOMAINS_MAP.values())
+P_RAW_SCORES = [
+    "MOTOR_GOFITTS_BEH_ID1_LeaveTime", 
+    "MOTOR_GOFITTS_BEH_ID2_LeaveTime",
+    "MOTOR_GOFITTS_BEH_ID3_LeaveTime", 
+    "MOTOR_GOFITTS_BEH_ID4_LeaveTime",
+    "MOTOR_GOFITTS_BEH_ID5_LeaveTime", 
+    "MOTOR_GOFITTS_BEH_ID6_LeaveTime",
+    "MOTOR_GOFITTS_BEH_ID1_PointTime", 
+    "MOTOR_GOFITTS_BEH_ID2_PointTime",
+    "MOTOR_GOFITTS_BEH_ID3_PointTime", 
+    "MOTOR_GOFITTS_BEH_ID4_PointTime",
+    "MOTOR_GOFITTS_BEH_ID5_PointTime", 
+    "MOTOR_GOFITTS_BEH_ID6_PointTime",
+    "MOTOR_GOFITTS_BEH_SLOPE_LeaveTime",
+    "MOTOR_GOFITTS_BEH_SLOPE_PointTime",
+    "MEMORY_EXCLUSION_BEH_C1_FAMILIARITY",
+    "MEMORY_EXCLUSION_BEH_C2_FAMILIARITY",
+    "MEMORY_EXCLUSION_BEH_C3_FAMILIARITY",
+    "MEMORY_EXCLUSION_BEH_C1_RECOLLECTION",
+    "MEMORY_EXCLUSION_BEH_C2_RECOLLECTION",
+    "MEMORY_EXCLUSION_BEH_C3_RECOLLECTION",
+    "MEMORY_EXCLUSION_BEH_C1TarHit_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C1TarMiss_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C1NonTarFA_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C1NonTarCR_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C1NewFA_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C1NewCR_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C1TarHit_RT", 
+    "MEMORY_EXCLUSION_BEH_C1TarMiss_RT",
+    "MEMORY_EXCLUSION_BEH_C1NonTarFA_RT",
+    "MEMORY_EXCLUSION_BEH_C1NonTarCR_RT", 
+    "MEMORY_EXCLUSION_BEH_C1NewFA_RT",
+    "MEMORY_EXCLUSION_BEH_C1NewCR_RT",
+    "MEMORY_EXCLUSION_BEH_C2TarHit_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C2TarMiss_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C2NonTarFA_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C2NonTarCR_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C2NewFA_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C2NewCR_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C2TarHit_RT", 
+    "MEMORY_EXCLUSION_BEH_C2TarMiss_RT",
+    "MEMORY_EXCLUSION_BEH_C2NonTarFA_RT",
+    "MEMORY_EXCLUSION_BEH_C2NonTarCR_RT", 
+    "MEMORY_EXCLUSION_BEH_C2NewFA_RT",
+    "MEMORY_EXCLUSION_BEH_C2NewCR_RT",
+    "MEMORY_EXCLUSION_BEH_C3TarHit_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C3TarMiss_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C3NonTarFA_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C3NonTarCR_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C3NewFA_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C3NewCR_PROPORTION",
+    "MEMORY_EXCLUSION_BEH_C3TarHit_RT", 
+    "MEMORY_EXCLUSION_BEH_C3TarMiss_RT",
+    "MEMORY_EXCLUSION_BEH_C3NonTarFA_RT",
+    "MEMORY_EXCLUSION_BEH_C3NonTarCR_RT", 
+    "MEMORY_EXCLUSION_BEH_C3NewFA_RT",
+    "MEMORY_EXCLUSION_BEH_C3NewCR_RT", 
+    "MEMORY_OSPAN_BEH_LETTER_ACCURACY",
+    "MEMORY_OSPAN_BEH_MATH_ACCURACY",
+    "LANGUAGE_SPEECHCOMP_BEH_PASSIVE_ACCURACY",
+    "LANGUAGE_SPEECHCOMP_BEH_PASSIVE_RT",
+    "LANGUAGE_READING_BEH_NULL_MeanSR"
+]
+P_DROP_COLS = ["Name", "Age", "Brain Age", "PAD", "Corrected PAD", "Avg"]
+
+## registration data
+R_COLNAME_MAP = {
+    "身分證字號": "ID", 
+    "出生年月日": "BirthDay"
+}
+
+## questionnaire data
+Q_COLNAME_MAP = {
+    "樣本編號": "ID8", 
+    "追蹤進程": "Session", 
+    "性別": "Sex", 
+    "教育程度": "Edu"
+}
+Q_USECOLS = list(Q_COLNAME_MAP.keys()) + ["MoCA"]
+Q_SEX_MAP = {1: "M", 2: "F"}
+Q_EDU_MAP = {
+     1: (0, "不識字"), 
+     2: (3, "自修、私塾或小學等識字者"), 
+     3: (6, "小學"), 
+     4: (9, "國(初)中"), 
+     5: (12, "高中職"),
+     6: (14, "二專"), 
+     7: (14, "五專"), 
+     8: (16, "二技"), 
+     9: (16, "大學"), 
+    10: (18, "研究所"), 
+    11: (None, "其他")
+}
+Q_EDU_GROUPS = {
+    "≤ Primary": [1, 2, 3], 
+    "Secondary": [4, 5], 
+    "Tertiary": [6, 7, 8, 9, 10]
+}
+Q_EDU_GROUP_MAP = {
+    c: g for g, codes in Q_EDU_GROUPS.items() for c in codes
+}
+Q_FINAL_COLS = ["SID", "Session", "Sex", "IsFemale", "Edu", "EduYears", "EduLevel", "EduGroup", "MoCA"]
