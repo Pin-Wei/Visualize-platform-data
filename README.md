@@ -1,6 +1,6 @@
 # Visualize Platform Data
 
-An interactive Streamlit web application for exploring, modeling, and visualizing longitudinal cognitive and motor assessment data. The application integrates platform behavioral scores with questionnaire and registration records to support cross-sectional, longitudinal, psychometric reliability, correlation, and individual-level clustering analyses.
+An interactive Streamlit web application for exploring, modeling, and visualizing data collected from an online cognitive testing platform. The application integrates behavioral indices with questionnaire and registration records to support cross-sectional, longitudinal, psychometric reliability, correlation, and individual-level clustering analyses.
 
 **Live Demo:** [Visualize Platform Data](https://visualize-platform-data-uaoq38joscqjyhgaxkgh7r.streamlit.app/)
 
